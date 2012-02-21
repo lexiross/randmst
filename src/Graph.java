@@ -1,4 +1,5 @@
 
 public interface Graph {
-	//TODO
+	private float[][] matrix;
+	
 }
