@@ -1,4 +1,6 @@
 
 public interface Heap {
-	//TODO
-}
+	boolean isEmpty();
+	void insert(float value);
+	float deleteMin();	
+} 
