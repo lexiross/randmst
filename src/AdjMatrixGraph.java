@@ -8,8 +8,7 @@ public class AdjMatrixGraph {
 		switch (d) {
 			case 0: 
 				for (int i = 0; i < n; i++) {
-					int diag = n - i;
-					for (int j = 0; j < diag; j++) {
+					for (int j = i; j < n; j++) {
 						float edgeWeight = rand.nextFloat();
 						matrix[i][j] = edgeWeight;
 						matrix[j][i] = edgeWeight;
@@ -17,16 +16,18 @@ public class AdjMatrixGraph {
 				}
 				break;
 			case 2:
-				float[] xs = new float[n];
-				float[] ys = new float[n];
+			case 3:
+			case 4:
+				float[] vertices = new float[n][d];
 				for (int i = 0; i < n; i++) {
-					xs[i] = rand.nextFloat();
-					ys[i] = rand.nextFloat();
+					for (int j = 0; j < d; j++)
+						vertices[i][j] = rand.nextFloat();
 				}
 				for (int i = 0; i < n; i++) {
-					int diag = n - i;
-					for (int j = 0; j < diag; j++) {
-						float jPos = rand.nextFloat();
+					for (int j = i; j < n; j++) {
+						float edgeWeight = dist(vertices[i],vertices[j],d);
+						matrix[i][j] = edgeWeight;
+						matrix[j][i] = edgeWeight;
 					}
 				}
 				break;
