@@ -60,8 +60,45 @@ public class DaryHeap implements Heap {
 
 	@Override
 	public float deleteMin() {
-		// TODO Auto-generated method stub
-		return 0;
+		if (this.isEmpty())
+			return 0;
+		float min = contents.get(0);
+			
+		float last = contents.get(this.size - 1);
+		contents.set(0, last);
+		// the node that will "trickle down" to the bottom
+		// of the heap
+		float shiftingNode = last;
+		int position = 0;
+		int childIndex = getFirstChildIndex(position);
+		
+		while (childIndex <= this.size) {
+			childIndex = getFirstChildIndex(position);
+			int tempIndex = getFirstChildIndex(position);
+			
+			// iterate this node's children to
+			// find its minimum child
+			for (int i = 0; i < d; i++) {
+				if (tempIndex >= this.size)
+					break;
+				tempIndex++;
+				if (contents.get(tempIndex) < contents.get(childIndex))
+					childIndex = tempIndex;
+			}
+			
+			// if shifting node is greater than the minimum child,
+			// make the swap
+			if (contents.get(childIndex) < shiftingNode)
+				contents.set(position, contents.get(childIndex));
+			else // we have already found the right place for the node
+				break;
+			
+			position = childIndex;
+		}
+		
+		// place shifting node into the correct position
+		contents.set(position, shiftingNode);
+		return min;
 	}
 
 }
