@@ -1,6 +1,6 @@
 
-public interface Heap {
+public interface Heap<T> {
 	boolean isEmpty();
-	void insert(float value);
-	float deleteMin();	
+	void insert(T value);
+	T deleteMin();	
 } 
