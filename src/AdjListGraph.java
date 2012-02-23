@@ -1,16 +1,13 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 public class AdjListGraph implements Graph {
-	private AdjListNode[] vertices;
+	private ArrayList<AdjListNode>[] vertices;
 
 	public AdjListGraph(int d, int n) {
 		double N = 0.1;
 		Random rand = new Random(System.nanoTime());
 		
-		vertices = new AdjListNode[n];
-		for (int i = 0; i < n; i++) {
-			vertices[i] = new AdjListNode();
-		}
 		
 		switch (d) {
 			case 0: 
@@ -20,12 +17,10 @@ public class AdjListGraph implements Graph {
 						
 						if (edgeWeight <= N) {
 							AdjListNode iNode = new AdjListNode(i,edgeWeight);
-							iNode.setNext(vertices[j].getNext());
-							vertices[j].setNext(iNode);
+							vertices[j].add(iNode);
 							
 							AdjListNode jNode = new AdjListNode(j,edgeWeight);
-							jNode.setNext(vertices[i].getNext());
-							vertices[i].setNext(jNode);
+							vertices[i].add(jNode);
 						}
 					}
 				}
@@ -44,12 +39,10 @@ public class AdjListGraph implements Graph {
 						
 						if (edgeWeight <= N) {
 							AdjListNode iNode = new AdjListNode(i,edgeWeight);
-							iNode.setNext(vertices[j].getNext());
-							vertices[j].setNext(iNode);
+							vertices[j].add(iNode);
 							
 							AdjListNode jNode = new AdjListNode(j,edgeWeight);
-							jNode.setNext(vertices[i].getNext());
-							vertices[i].setNext(jNode);
+							vertices[i].add(jNode);
 						}
 					}
 				}
