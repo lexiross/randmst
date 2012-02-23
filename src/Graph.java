@@ -1,4 +1,5 @@
 
 public interface Graph {
-	//TODO
+	public float prim();
+	public boolean isTree();	
 }
