@@ -1,5 +1,5 @@
 
 public interface Graph {
-	public float prim();
+	public double prim();
 	public boolean isTree();	
 }
