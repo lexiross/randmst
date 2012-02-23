@@ -7,10 +7,11 @@ public class AdjListGraph implements Graph {
 	private ArrayList<AdjListNode>[] vertices;
 	private int numVertices;
 
-	public AdjListGraph(int d, int n) {
+	public AdjListGraph(int d, int n, double N) {
 		this.numVertices = n;
 		
-		double N = 0.1;
+		N *= d;
+		
 		Random rand = new Random(System.nanoTime());
 		
 		
@@ -40,9 +41,14 @@ public class AdjListGraph implements Graph {
 				}
 				for (int i = 0; i < n; i++) {
 					for (int j = i; j < n; j++) {
-						double edgeWeight = dist(points[i],points[j],d);
 						
-						if (edgeWeight <= N) {
+						double testWeight = 0;
+						for (int k = 0; k < d; k++)
+							testWeight += Math.abs(points[i][k] - points[j][k]);
+										
+						if (testWeight <= N) {
+							double edgeWeight = dist(points[i],points[j],d);
+							
 							AdjListNode iNode = new AdjListNode(i,edgeWeight);
 							vertices[j].add(iNode);
 							
@@ -135,5 +141,20 @@ public class AdjListGraph implements Graph {
 			}
 		}
 		return (count == this.numVertices);
+	}
+	
+	public void print() {
+		for (int i = 0; i < numVertices; i++) {
+			System.out.println(i + "-> ");
+			
+			ArrayList<AdjListNode> neighbors = this.getNeighbors(i);
+			
+			Iterator<AdjListNode> iterator = neighbors.iterator();
+			 
+			while(iterator.hasNext())
+			    System.out.println(iterator.next().toString() + ", ");
+			
+			System.out.println("\n");
+		}
 	}
 }
