@@ -1,8 +1,7 @@
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
-
-import javax.swing.text.html.HTMLDocument.Iterator;
+import java.util.Iterator;
 
 public class AdjListGraph implements Graph {
 	private ArrayList<AdjListNode>[] vertices;
@@ -98,7 +97,7 @@ public class AdjListGraph implements Graph {
 			
 			ArrayList<AdjListNode> neighbors = this.getNeighbors(v);
 			
-			java.util.Iterator<AdjListNode> iterator = neighbors.iterator();
+			Iterator<AdjListNode> iterator = neighbors.iterator();
 			 
 			while(iterator.hasNext()) {
 				AdjListNode node = iterator.next();
