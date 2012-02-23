@@ -1,6 +1,6 @@
 
-public interface Heap<T> {
+public interface Heap {
 	boolean isEmpty();
-	void insert(T value);
-	T deleteMin();	
+	void insert(AdjListNode value);
+	AdjListNode deleteMin();	
 } 

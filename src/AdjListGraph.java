@@ -85,7 +85,7 @@ public class AdjListGraph implements Graph {
 			set[i] = false;
 		}
 		
-		Heap<AdjListNode> H = new DaryHeap<AdjListNode>(2);
+		Heap H = new DaryHeap(2);
 		H.insert(new AdjListNode(0,0));
 		
 		dist[0] = 0;
@@ -137,4 +137,6 @@ public class AdjListGraph implements Graph {
 		}
 		return (count == this.numVertices);
 	}
+	
+	
 }

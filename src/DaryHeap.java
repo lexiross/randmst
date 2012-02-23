@@ -1,15 +1,15 @@
 import java.util.ArrayList;
 
 
-public class DaryHeap<T extends Comparable<? super T>> implements Heap<T> {
+public class DaryHeap implements Heap {
 
 	private int size;
-	private ArrayList<T> contents;
+	private ArrayList<AdjListNode> contents;
 	private int d;
 	
 	public DaryHeap(int d) {
 		this.size = 0;
-		this.contents = new ArrayList<T>();
+		this.contents = new ArrayList<AdjListNode>();
 		this.d = d;
 	}
 	
@@ -42,13 +42,13 @@ public class DaryHeap<T extends Comparable<? super T>> implements Heap<T> {
 	/**
 	 * Inserts a value into the heap.
 	 */
-	public void insert(T value) {
+	public void insert(AdjListNode value) {
 		if (this.isEmpty()) {
 			this.contents.set(0, value);
 		}
 		else {
 			int position = this.size + 1;
-			T parent = contents.get(getParent(position));
+			AdjListNode parent = contents.get(getParent(position));
 			while (position > 0 && value.compareTo(parent) < 0) {
 				contents.set(position, parent);
 				parent = contents.get(getParent(position));
@@ -59,16 +59,16 @@ public class DaryHeap<T extends Comparable<? super T>> implements Heap<T> {
 	}
 
 	@Override
-	public T deleteMin() {
+	public AdjListNode deleteMin() {
 		if (this.isEmpty())
 			return null;
-		T min = contents.get(0);
+		AdjListNode min = contents.get(0);
 			
-		T last = contents.get(this.size - 1);
+		AdjListNode last = contents.get(this.size - 1);
 		contents.set(0, last);
 		// the node that will "trickle down" to the bottom
 		// of the heap
-		T shiftingNode = last;
+		AdjListNode shiftingNode = last;
 		int position = 0;
 		int childIndex = getFirstChildIndex(position);
 		
@@ -99,6 +99,14 @@ public class DaryHeap<T extends Comparable<? super T>> implements Heap<T> {
 		// place shifting node into the correct position
 		contents.set(position, shiftingNode);
 		return min;
+	}
+	
+	public void printHeap() {
+		String str = "";
+		for (AdjListNode node : this.contents) {
+			str += node.getWeight() + "\t";
+		}
+		System.out.println(str);
 	}
 
 }
