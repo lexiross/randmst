@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Stack;
 
 public class AdjListGraph implements Graph {
 	private ArrayList<AdjListNode>[] vertices;
@@ -59,6 +60,10 @@ public class AdjListGraph implements Graph {
 		
 		return Math.sqrt(sumSquares);
 	}
+	
+	public ArrayList<AdjListNode> getNeighbors(int v) {
+		return this.vertices[v];
+	}
 
 	@Override
 	public double prim() {
@@ -67,8 +72,25 @@ public class AdjListGraph implements Graph {
 	}
 
 	@Override
-	public boolean isTree() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isGraph() {
+		Stack<AdjListNode> stack = new Stack<AdjListNode>();
+		AdjListNode root = new AdjListNode(0, 0.0);
+		stack.push(root);
+		int count = 0;
+		boolean[] explored = new boolean[this.numVertices];
+		while (!stack.empty()) {
+			AdjListNode v = stack.pop();
+			int vNum = v.getVertex();
+			count++;
+			ArrayList<AdjListNode> neighbors = this.getNeighbors(vNum);
+			for (AdjListNode w : neighbors) {
+				int wNum = w.getVertex();
+				if (!explored[wNum]) {
+					explored[wNum] = true;
+					stack.push(w);
+				}
+			}
+		}
+		return (count == this.numVertices);
 	}
 }
