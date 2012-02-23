@@ -22,5 +22,9 @@ public class AdjListNode implements Comparable<AdjListNode> {
 	
 	public int getVertex() { return w; }
 	
-	public double getWeight() {return weight; }
+	public double getWeight() { return weight; }
+	
+	public String toString() { 
+		return (w + ": " + weight);
+	}
 }
