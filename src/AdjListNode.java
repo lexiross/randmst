@@ -19,4 +19,8 @@ public class AdjListNode implements Comparable<AdjListNode> {
 			return 0;
 		}
 	}
+	
+	public int getVertex() { return w; }
+	
+	public double getWeight() {return weight; }
 }
