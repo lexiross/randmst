@@ -1,15 +1,15 @@
 import java.util.ArrayList;
 
 
-public class DaryHeap implements Heap {
+public class DaryHeap<T extends Comparable<? super T>> implements Heap<T> {
 
 	private int size;
-	private ArrayList<Float> contents;
+	private ArrayList<T> contents;
 	private int d;
 	
 	public DaryHeap(int d) {
 		this.size = 0;
-		this.contents = new ArrayList<Float>();
+		this.contents = new ArrayList<T>();
 		this.d = d;
 	}
 	
@@ -42,14 +42,14 @@ public class DaryHeap implements Heap {
 	/**
 	 * Inserts a value into the heap.
 	 */
-	public void insert(float value) {
+	public void insert(T value) {
 		if (this.isEmpty()) {
 			this.contents.set(0, value);
 		}
 		else {
 			int position = this.size + 1;
-			float parent = contents.get(getParent(position));
-			while (position > 0 && value < parent) {
+			T parent = contents.get(getParent(position));
+			while (position > 0 && value.compareTo(parent) < 0) {
 				contents.set(position, parent);
 				parent = contents.get(getParent(position));
 				position = getParent(position);
@@ -59,16 +59,16 @@ public class DaryHeap implements Heap {
 	}
 
 	@Override
-	public float deleteMin() {
+	public T deleteMin() {
 		if (this.isEmpty())
-			return 0;
-		float min = contents.get(0);
+			return null;
+		T min = contents.get(0);
 			
-		float last = contents.get(this.size - 1);
+		T last = contents.get(this.size - 1);
 		contents.set(0, last);
 		// the node that will "trickle down" to the bottom
 		// of the heap
-		float shiftingNode = last;
+		T shiftingNode = last;
 		int position = 0;
 		int childIndex = getFirstChildIndex(position);
 		
@@ -82,13 +82,13 @@ public class DaryHeap implements Heap {
 				if (tempIndex >= this.size)
 					break;
 				tempIndex++;
-				if (contents.get(tempIndex) < contents.get(childIndex))
+				if (contents.get(tempIndex).compareTo(contents.get(childIndex)) < 0)
 					childIndex = tempIndex;
 			}
 			
 			// if shifting node is greater than the minimum child,
 			// make the swap
-			if (contents.get(childIndex) < shiftingNode)
+			if (contents.get(childIndex).compareTo(shiftingNode) < 0)
 				contents.set(position, contents.get(childIndex));
 			else // we have already found the right place for the node
 				break;
