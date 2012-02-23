@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class AdjMatrixGraph {
+public class AdjMatrixGraph implements Graph {
 	private float[][] matrix;
 	
 	public AdjMatrixGraph(int d, int n) {

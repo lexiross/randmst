@@ -1,5 +1,5 @@
 
 public interface Graph {
-	private float[][] matrix;
-	
+	public float prim();
+	public boolean isTree();	
 }
