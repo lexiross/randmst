@@ -18,7 +18,7 @@ public class AdjMatrixGraph implements Graph {
 			case 2:
 			case 3:
 			case 4:
-				float[] vertices = new float[n][d];
+				float[][] vertices = new float[n][d];
 				for (int i = 0; i < n; i++) {
 					for (int j = 0; j < d; j++)
 						vertices[i][j] = rand.nextFloat();
@@ -43,5 +43,17 @@ public class AdjMatrixGraph implements Graph {
 		}
 		
 		return (float) Math.sqrt(sumSquares);
+	}
+
+	@Override
+	public double prim() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean isTree() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

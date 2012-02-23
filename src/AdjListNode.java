@@ -2,12 +2,12 @@
 public class AdjListNode implements Comparable<AdjListNode> {
 	
 	private int w;
-	private float weight;
+	private double weight;
 	private AdjListNode next;
-		
-	public AdjListNode(int w, float weight) {
+	
+	public AdjListNode(int w, double edgeWeight) {
 		this.w = w;
-		this.weight = weight;
+		this.weight = edgeWeight;
 		this.next = null;
 	}
 	
