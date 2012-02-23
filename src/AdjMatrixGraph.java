@@ -52,7 +52,7 @@ public class AdjMatrixGraph implements Graph {
 	}
 
 	@Override
-	public boolean isConnected() {
+	public boolean isGraph() {
 		// TODO Auto-generated method stub
 		return false;
 	}
