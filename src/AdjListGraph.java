@@ -7,25 +7,31 @@ public class AdjListGraph implements Graph {
 	private ArrayList<AdjListNode>[] vertices;
 	private int numVertices;
 
-	public AdjListGraph(int d, int n, double N) {
+	public AdjListGraph(int d, int n, double N, boolean testing) {
 		this.numVertices = n;
-		
-		N *= d;
-		
+		this.vertices = new ArrayList[n];
+				
 		Random rand = new Random(System.nanoTime());
 		
 		
 		switch (d) {
 			case 0: 
 				for (int i = 0; i < n; i++) {
-					for (int j = i; j < n; j++) {
+					for (int j = i + 1; j < n; j++) {
 						double edgeWeight = rand.nextDouble();
-						
-						if (edgeWeight <= N) {
+								
+						if (edgeWeight < N) {
+							if (testing)
+								System.out.println("(" + i + "," + j + ") : " + edgeWeight + "\n");
+							
 							AdjListNode iNode = new AdjListNode(i,edgeWeight);
+							if (vertices[j] == null) 
+								vertices[j] = new ArrayList<AdjListNode>();						
 							vertices[j].add(iNode);
 							
 							AdjListNode jNode = new AdjListNode(j,edgeWeight);
+							if (vertices[i] == null) 
+								vertices[i] = new ArrayList<AdjListNode>();	
 							vertices[i].add(jNode);
 						}
 					}
@@ -39,20 +45,40 @@ public class AdjListGraph implements Graph {
 					for (int j = 0; j < d; j++)
 						points[i][j] = rand.nextDouble();
 				}
+				
+				if (testing) {
+					for (int i = 0; i < n; i++) {
+						String s = "";
+						for (int j = 0; j < d; j++)
+							s += points[i][j] + " ";
+						System.out.println(i + ": " + s + "\n");
+					}
+				}
+				
 				for (int i = 0; i < n; i++) {
-					for (int j = i; j < n; j++) {
+					for (int j = i + 1; j < n; j++) {
 						
 						double testWeight = 0;
+						
 						for (int k = 0; k < d; k++)
 							testWeight += Math.abs(points[i][k] - points[j][k]);
+						if (testing)
+							System.out.println("t (" + i + "," + j + ") : " + testWeight + "\n");
 										
 						if (testWeight <= N) {
-							double edgeWeight = dist(points[i],points[j],d);
+							double edgeWeight = dist2(points[i],points[j],d);
+							
+							if (testing)
+								System.out.println("e (" + i + "," + j + ") : " + edgeWeight + "\n");
 							
 							AdjListNode iNode = new AdjListNode(i,edgeWeight);
+							if (vertices[j] == null) 
+								vertices[j] = new ArrayList<AdjListNode>();						
 							vertices[j].add(iNode);
 							
 							AdjListNode jNode = new AdjListNode(j,edgeWeight);
+							if (vertices[i] == null) 
+								vertices[i] = new ArrayList<AdjListNode>();	
 							vertices[i].add(jNode);
 						}
 					}
@@ -62,17 +88,17 @@ public class AdjListGraph implements Graph {
 		}
 	}
 	
-	static double dist(double[] x, double[] y, int d) {
+	static double dist2(double[] x, double[] y, int d) {
 		double sumSquares = 0;
 		for (int i = 0; i < d; i++) {
 			sumSquares += Math.pow((x[i] - y[i]), 2);
 		}
 		
-		return Math.sqrt(sumSquares);
+		return sumSquares;
 	}
 	
 	public ArrayList<AdjListNode> getNeighbors(int v) {
-		return this.vertices[v];
+		return vertices[v];
 	}
 
 
@@ -99,7 +125,9 @@ public class AdjListGraph implements Graph {
 			AdjListNode currVertex = H.deleteMin();
 			int v = currVertex.getVertex();
 			set[v] = true;
-			treeWeight += currVertex.getWeight();
+			
+			// sqrt here
+			treeWeight += Math.sqrt(currVertex.getWeight());
 			
 			ArrayList<AdjListNode> neighbors = this.getNeighbors(v);
 			
@@ -148,6 +176,9 @@ public class AdjListGraph implements Graph {
 			System.out.println(i + "-> ");
 			
 			ArrayList<AdjListNode> neighbors = this.getNeighbors(i);
+			
+			if (neighbors == null)
+				return;
 			
 			Iterator<AdjListNode> iterator = neighbors.iterator();
 			 
