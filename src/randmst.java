@@ -31,9 +31,12 @@ public class randmst {
         		System.out.println("done");
         		break;
         	case 2:
-        		Graph g2 = new AdjListGraph(dimension, numpoints, 5);
-        		g2.print();
-        		g2.prim();
+        		for (int i = 25; i < numpoints; i+=25) {
+        			for (int j = 0; j < numtrials; j++) {
+        				Graph g2 = new AdjListGraph(dimension, i, 5);
+        				g2.prim();
+        			}
+        		}
         		break;
         	case 3:
         		int[] array = {1,2,10,8,3,9,7,4,6,5};
@@ -45,7 +48,6 @@ public class randmst {
         		
         		while (!h.isEmpty())
         			System.out.println(h.deleteMin().toString() + "\n");
-
         		break;
         		
         	default:
