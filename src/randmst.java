@@ -48,6 +48,7 @@ public class randmst {
         		}
         		
         		//h.print();
+        		break;
         		
         	default:
         		System.exit(1);
