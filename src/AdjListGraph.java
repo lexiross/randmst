@@ -6,9 +6,11 @@ import java.util.Iterator;
 public class AdjListGraph implements Graph {
 	private ArrayList<AdjListNode>[] vertices;
 	private int numVertices;
+	private int dimension;
 
 	public AdjListGraph(int d, int n, double N) {
 		this.numVertices = n;
+		this.dimension = d;
 		this.vertices = new ArrayList[n];
 				
 		Random rand = new Random(System.nanoTime());
@@ -105,6 +107,7 @@ public class AdjListGraph implements Graph {
 	@Override
 	public double prim() {
 		double treeWeight = 0;
+		double maxEdge = 0;
 		
 		double[] dist = new double[numVertices];
 		int[] prev = new int[numVertices];
@@ -119,7 +122,7 @@ public class AdjListGraph implements Graph {
 		Heap H = new MinHeap();
 		H.insert(new AdjListNode(0,0));
 		
-		System.out.println(H.toString());
+		//System.out.println(H.toString());
 		
 		dist[0] = 0;
 		
@@ -128,7 +131,10 @@ public class AdjListGraph implements Graph {
 			int v = currVertex.getVertex();
 			set[v] = true;
 			
-			treeWeight += Math.sqrt(currVertex.getWeight());
+			double edgeWeight = Math.sqrt(currVertex.getWeight());
+			if (edgeWeight > maxEdge)
+				maxEdge = edgeWeight;
+			treeWeight += edgeWeight;
 			
 			ArrayList<AdjListNode> neighbors = this.getNeighbors(v);
 			
@@ -151,6 +157,10 @@ public class AdjListGraph implements Graph {
 			System.out.println(i + ": " + "dist=" + dist[i] + " prev=" + prev[i] + "\n");
 		}*/
 		
+		System.out.println("RESULTS:\nDimension: " + this.dimension + 
+				"\n# of vertices: " + this.numVertices + 
+				"\nTree weight: " + treeWeight + "\nMax edge: " +
+				maxEdge);
 		return treeWeight;
 	}
 
