@@ -116,7 +116,7 @@ public class AdjListGraph implements Graph {
 			set[i] = false;
 		}
 		
-		Heap H = new MinHeap(20);
+		Heap H = new MinHeap();
 		H.insert(new AdjListNode(0,0));
 		
 		System.out.println(H.toString());

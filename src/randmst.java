@@ -35,6 +35,20 @@ public class randmst {
         		g2.print();
         		g2.prim();
         		break;
+        	case 3:
+        		int[] array = {1,2,10,8,3,9,7,4,6,5};
+        		MinHeap h = new MinHeap();
+        		
+        		for(int i = 0; i < 10; i++) {
+        			h.insert(new AdjListNode(i,array[i]));
+        		}
+        		
+        		while (!h.isEmpty()) {
+        			System.out.println(h.deleteMin().toString() + "\n");
+        		}
+        		
+        		//h.print();
+        		
         	default:
         		System.exit(1);
         }

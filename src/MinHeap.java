@@ -1,74 +1,72 @@
+import java.util.ArrayList;
+
 public class MinHeap implements Heap {
-    private AdjListNode[] Heap;
-    private int maxsize;
+    private ArrayList<AdjListNode> Heap;
+    //private int maxsize;
     private int size;
 
-    public MinHeap(int max) {
-	maxsize = max;
-	Heap = new AdjListNode[maxsize];
-	size = 0 ;
-	Heap[0] = new AdjListNode(0,0);
+    public MinHeap() {
+		//maxsize = max;
+		Heap = new ArrayList<AdjListNode>();
+		Heap.add(new AdjListNode(0,0));
+		size = 0 ;
+		//Heap[0] = new AdjListNode(0,0);
     }
 
     private int leftchild(int pos) {
-	return 2*pos;
+    	return 2*pos;
     }
     private int rightchild(int pos) {
-	return 2*pos + 1;
+    	return 2*pos + 1;
     }
 
     private int parent(int pos) {
-	return  pos / 2;
+    	return  pos / 2;
     }
     
     private boolean isleaf(int pos) {
-	return ((pos > size/2) && (pos <= size));
+    	return ((pos > size/2) && (pos <= size));
     }
 
     private void swap(int pos1, int pos2) {
-	AdjListNode tmp;
-
-	tmp = Heap[pos1];
-	Heap[pos1] = Heap[pos2];
-	Heap[pos2] = tmp;
+		AdjListNode tmp;
+	
+		tmp = Heap.get(pos1);
+		Heap.set(pos1, Heap.get(pos2));
+		Heap.set(pos2, tmp);
     }
 
     public void insert(AdjListNode elem) {
-	size++;
-	Heap[size] = elem;
-	int current = size;
-	
-	while (Heap[current].compareTo(Heap[parent(current)]) < 0) {
-	    swap(current, parent(current));
-	    current = parent(current);
-	}	
-    }
-
-    public void print() {
-	int i;
-	for (i=1; i<=size;i++)
-	    System.out.print(Heap[i] + " ");
-	System.out.println();
+    	size++;
+		Heap.add(elem);
+		int current = size;
+		int parent = parent(current);
+		
+		while (Heap.get(current).compareTo(Heap.get(parent)) < 0) {
+		    swap(current, parent);
+		    current = parent;
+		    parent = parent(current);
+		}	
     }
 
     public AdjListNode deleteMin() {
-	swap(1,size);
-	size--;
-	if (size != 0)
-	    pushdown(1);
-	return Heap[size+1];
+		swap(1,size);
+		size--;
+		if (size != 0)
+		    pushdown(1);
+		return Heap.get(size+1);
     }
 
     private void pushdown(int position) {
-	int smallestchild;
-	while (!isleaf(position)) {
-	    smallestchild = leftchild(position);
-	    if ((smallestchild < size) && (Heap[smallestchild].compareTo(Heap[smallestchild+1])) > 0)
-		smallestchild = smallestchild + 1;
-	    if (Heap[position].compareTo(Heap[smallestchild]) <= 0) return;
-	    swap(position,smallestchild);
-	    position = smallestchild;
-	}
+		int smallestchild;
+		while (!isleaf(position)) {
+		    smallestchild = leftchild(position);
+		    if ((smallestchild < size) && (Heap.get(smallestchild).compareTo(Heap.get(smallestchild+1))) > 0)
+		    	smallestchild = smallestchild + 1;
+		    if (Heap.get(position).compareTo(Heap.get(smallestchild)) <= 0) return;
+		    swap(position,smallestchild);
+		    position = smallestchild;
+		}
     }
 
 	@Override
