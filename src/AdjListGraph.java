@@ -107,7 +107,7 @@ public class AdjListGraph implements Graph {
 	@Override
 	public double prim() {
 		double treeWeight = 0;
-		double maxEdge = 0;
+		//double maxEdge = 0;
 		
 		double[] dist = new double[numVertices];
 		int[] prev = new int[numVertices];
@@ -132,8 +132,8 @@ public class AdjListGraph implements Graph {
 			set[v] = true;
 			
 			double edgeWeight = Math.sqrt(currVertex.getWeight());
-			if (edgeWeight > maxEdge)
-				maxEdge = edgeWeight;
+			//if (edgeWeight > maxEdge)
+				//maxEdge = edgeWeight;
 			treeWeight += edgeWeight;
 			
 			ArrayList<AdjListNode> neighbors = this.getNeighbors(v);
@@ -157,11 +157,21 @@ public class AdjListGraph implements Graph {
 			System.out.println(i + ": " + "dist=" + dist[i] + " prev=" + prev[i] + "\n");
 		}*/
 		
+		double finalWeight = 0.0;
+		double maxEdge = 0.0;
+		for (double w : dist) {
+			finalWeight += w;
+			if (w > maxEdge)
+				maxEdge = w;
+		}
+		
 		System.out.println("RESULTS:\nDimension: " + this.dimension + 
-				"\n# of vertices: " + this.numVertices + 
-				"\nTree weight: " + treeWeight + "\nMax edge: " +
-				maxEdge);
-		return treeWeight;
+		"\n# of vertices: " + this.numVertices + 
+		"\nTree weight: " + finalWeight + "\nMax edge: " +
+		maxEdge);
+		
+		return finalWeight;
+
 	}
 
 	public boolean isGraph() {
