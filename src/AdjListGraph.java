@@ -7,7 +7,7 @@ public class AdjListGraph implements Graph {
 	private ArrayList<AdjListNode>[] vertices;
 	private int numVertices;
 
-	public AdjListGraph(int d, int n, double N, boolean testing) {
+	public AdjListGraph(int d, int n, double N) {
 		this.numVertices = n;
 		this.vertices = new ArrayList[n];
 				
@@ -21,8 +21,8 @@ public class AdjListGraph implements Graph {
 						double edgeWeight = rand.nextDouble();
 								
 						if (edgeWeight < N) {
-							if (testing)
-								System.out.println("(" + i + "," + j + ") : " + edgeWeight + "\n");
+							/*if (testing)
+								System.out.println("(" + i + "," + j + ") : " + edgeWeight + "\n");*/
 							
 							AdjListNode iNode = new AdjListNode(i,edgeWeight);
 							if (vertices[j] == null) 
@@ -46,14 +46,14 @@ public class AdjListGraph implements Graph {
 						points[i][j] = rand.nextDouble();
 				}
 				
-				if (testing) {
+				/*if (testing) {
 					for (int i = 0; i < n; i++) {
 						String s = "";
 						for (int j = 0; j < d; j++)
 							s += points[i][j] + " ";
 						System.out.println(i + ": " + s + "\n");
 					}
-				}
+				}*/
 				
 				for (int i = 0; i < n; i++) {
 					for (int j = i + 1; j < n; j++) {
@@ -62,14 +62,14 @@ public class AdjListGraph implements Graph {
 						
 						for (int k = 0; k < d; k++)
 							testWeight += Math.abs(points[i][k] - points[j][k]);
-						if (testing)
-							System.out.println("t (" + i + "," + j + ") : " + testWeight + "\n");
+						/*if (testing)
+							System.out.println("t (" + i + "," + j + ") : " + testWeight + "\n");*/
 										
 						if (testWeight <= N) {
 							double edgeWeight = dist2(points[i],points[j],d);
 							
-							if (testing)
-								System.out.println("e (" + i + "," + j + ") : " + edgeWeight + "\n");
+							/*if (testing)
+								System.out.println("e (" + i + "," + j + ") : " + edgeWeight + "\n");*/
 							
 							AdjListNode iNode = new AdjListNode(i,edgeWeight);
 							if (vertices[j] == null) 
@@ -116,8 +116,10 @@ public class AdjListGraph implements Graph {
 			set[i] = false;
 		}
 		
-		Heap H = new DaryHeap(2);
+		Heap H = new MinHeap(20);
 		H.insert(new AdjListNode(0,0));
+		
+		System.out.println(H.toString());
 		
 		dist[0] = 0;
 		
@@ -126,7 +128,6 @@ public class AdjListGraph implements Graph {
 			int v = currVertex.getVertex();
 			set[v] = true;
 			
-			// sqrt here
 			treeWeight += Math.sqrt(currVertex.getWeight());
 			
 			ArrayList<AdjListNode> neighbors = this.getNeighbors(v);
@@ -145,6 +146,10 @@ public class AdjListGraph implements Graph {
 				}
 			}
 		}
+		
+		/*for (int i = 0; i < numVertices; i++) {
+			System.out.println(i + ": " + "dist=" + dist[i] + " prev=" + prev[i] + "\n");
+		}*/
 		
 		return treeWeight;
 	}

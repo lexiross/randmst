@@ -27,4 +27,5 @@ public class AdjListNode implements Comparable<AdjListNode> {
 	public String toString() { 
 		return (w + ": " + weight);
 	}
+	
 }
