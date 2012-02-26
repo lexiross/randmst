@@ -1,5 +1,6 @@
 
 public class randmst {
+	/*
 	public static void main (String[] args) {
 		String usage = "Usage: <program> <run version> <numpoints> <numtrials> <dimension>";
         if (args.length != 4) {
@@ -53,4 +54,5 @@ public class randmst {
         		System.exit(1);
         }
 	}
+	*/
 }

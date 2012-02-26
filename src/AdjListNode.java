@@ -11,7 +11,7 @@ public class AdjListNode implements Comparable<AdjListNode> {
 	}
 
 	public int compareTo(AdjListNode other) {
-		if (this.weight < other.weight) {
+		if (this.getWeight() < other.getWeight()) {
 			return -1;
 		} else if (this.weight > other.weight) {
 			return 1;
@@ -22,7 +22,7 @@ public class AdjListNode implements Comparable<AdjListNode> {
 	
 	public int getVertex() { return w; }
 	
-	public double getWeight() { return weight; }
+	public double getWeight() { return this.weight; }
 	
 	public String toString() { 
 		return (w + ": " + weight);

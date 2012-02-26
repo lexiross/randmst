@@ -44,17 +44,32 @@ public class DaryHeap implements Heap {
 	 */
 	public void insert(AdjListNode value) {
 		if (this.isEmpty()) {
-			this.contents.set(0, value);
-		}
+			this.contents.add(value);
+		} //                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
 		else {
-			int position = this.size + 1;
-			AdjListNode parent = contents.get(getParent(position));
+			int position = this.size;
+			this.contents.add(null); //ensure no out of bounds
+			int p = getParent(position);
+			System.out.println("Parent: " + p);
+			AdjListNode parent = this.contents.get(getParent(position));
+			System.out.println("Array size: " + this.contents.size());
+			System.out.println("Position: " + position);
 			while (position > 0 && value.compareTo(parent) < 0) {
-				contents.set(position, parent);
+				this.contents.set(position, parent);
 				parent = contents.get(getParent(position));
 				position = getParent(position);
+				this.expand(position);
 			}
+			this.expand(position);
 			this.contents.set(position, value);
+		}
+		this.size++;
+	}
+	
+	private void expand(int n) {
+		int current_size = this.contents.size();
+		for (int i = current_size; i <= n; i++) {
+			this.contents.add(null);
 		}
 	}
 
@@ -104,9 +119,33 @@ public class DaryHeap implements Heap {
 	public void printHeap() {
 		String str = "";
 		for (AdjListNode node : this.contents) {
-			str += node.getWeight() + "\t";
+			if (node != null)
+				str += node.getWeight() + "\t";
 		}
 		System.out.println(str);
+	}
+	
+	public static void main(String[] args) {
+		DaryHeap heap = new DaryHeap(2);
+		assert(heap.isEmpty());
+		double[] values = {3.0, 4.0, 1.0, 5.0, 2.0, 6.0};
+		int i = 0;
+		for (double d : values) {
+			AdjListNode node = new AdjListNode(i, d);
+			heap.insert(node);
+			System.out.println("Adding " + d);
+			heap.printHeap();
+			i++;
+		}
+		heap.printHeap();
+		assert(!heap.isEmpty());
+		AdjListNode min = heap.deleteMin();
+		assert(min.getWeight() < 2.0);
+		assert(min.getVertex() == 2);
+		for (int j = 0; j < 5; j++) {
+			heap.deleteMin();
+		}
+		assert(heap.isEmpty());
 	}
 
 }
