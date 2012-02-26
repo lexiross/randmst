@@ -46,11 +46,7 @@ public class randmst {
         		while (!h.isEmpty()) {
         			System.out.println(h.deleteMin().toString() + "\n");
         		}
-<<<<<<< HEAD
-=======
-        		
         		//h.print();
->>>>>>> 9d6b0f18e9c076279555170d7f17678814e98ff2
         		break;
         		
         	default:
