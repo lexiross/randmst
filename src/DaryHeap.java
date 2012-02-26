@@ -125,6 +125,7 @@ public class DaryHeap implements Heap {
 		System.out.println(str);
 	}
 	
+	/*
 	public static void main(String[] args) {
 		DaryHeap heap = new DaryHeap(2);
 		assert(heap.isEmpty());
@@ -147,5 +148,6 @@ public class DaryHeap implements Heap {
 		}
 		assert(heap.isEmpty());
 	}
+	*/
 
 }
