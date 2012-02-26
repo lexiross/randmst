@@ -165,10 +165,10 @@ public class AdjListGraph implements Graph {
 				maxEdge = w;
 		}
 		
-		System.out.println("RESULTS:\nDimension: " + this.dimension + 
-		"\n# of vertices: " + this.numVertices + 
-		"\nTree weight: " + finalWeight + "\nMax edge: " +
-		maxEdge);
+		System.out.println("Dimension: " + this.dimension + 
+		", n: " + this.numVertices + 
+		", maxEdge: " + maxEdge + ", treeWeight: " +
+		finalWeight);
 		
 		return finalWeight;
 
