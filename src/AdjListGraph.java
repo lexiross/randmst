@@ -15,7 +15,7 @@ public class AdjListGraph implements Graph {
 				
 		Random rand = new Random(System.nanoTime());
 		
-		
+		// SQUARING!!
 		switch (d) {
 			case 0: 
 				for (int i = 0; i < n; i++) {
@@ -23,8 +23,7 @@ public class AdjListGraph implements Graph {
 						double edgeWeight = rand.nextDouble();
 								
 						if (edgeWeight < N) {
-							/*if (testing)
-								System.out.println("(" + i + "," + j + ") : " + edgeWeight + "\n");*/
+							//System.out.println("(" + i + "," + j + ") : " + edgeWeight + "\n");
 							
 							AdjListNode iNode = new AdjListNode(i,edgeWeight);
 							if (vertices[j] == null) 
@@ -60,15 +59,17 @@ public class AdjListGraph implements Graph {
 				for (int i = 0; i < n; i++) {
 					for (int j = i + 1; j < n; j++) {
 						
-						double testWeight = 0;
+						double edgeWeight = dist2(points[i],points[j],d);;
 						
-						for (int k = 0; k < d; k++)
-							testWeight += Math.abs(points[i][k] - points[j][k]);
+						/*for (int k = 0; k < d; k++) {
+							if (Math.abs(points[i][k] - points[j][k]) > testWeight)
+								testWeight = Math.abs(points[i][k] - points[j][k]);
+						}*/
 						/*if (testing)
 							System.out.println("t (" + i + "," + j + ") : " + testWeight + "\n");*/
 										
-						if (testWeight <= N) {
-							double edgeWeight = dist2(points[i],points[j],d);
+						if (edgeWeight <= N) {
+							//double edgeWeight = dist2(points[i],points[j],d);
 							
 							/*if (testing)
 								System.out.println("e (" + i + "," + j + ") : " + edgeWeight + "\n");*/
@@ -131,10 +132,10 @@ public class AdjListGraph implements Graph {
 			int v = currVertex.getVertex();
 			set[v] = true;
 			
-			double edgeWeight = Math.sqrt(currVertex.getWeight());
+			//double edgeWeight = Math.sqrt(currVertex.getWeight());
 			//if (edgeWeight > maxEdge)
 				//maxEdge = edgeWeight;
-			treeWeight += edgeWeight;
+			//treeWeight += edgeWeight;
 			
 			ArrayList<AdjListNode> neighbors = this.getNeighbors(v);
 			
@@ -160,6 +161,8 @@ public class AdjListGraph implements Graph {
 		double finalWeight = 0.0;
 		double maxEdge = 0.0;
 		for (double w : dist) {
+			if (dimension != 0)
+				w = Math.sqrt(w);
 			finalWeight += w;
 			if (w > maxEdge)
 				maxEdge = w;
