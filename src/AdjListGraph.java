@@ -59,17 +59,17 @@ public class AdjListGraph implements Graph {
 				for (int i = 0; i < n; i++) {
 					for (int j = i + 1; j < n; j++) {
 						
-						double edgeWeight = dist2(points[i],points[j],d);;
+						double testWeight = dist2(points[i],points[j],d);
 						
-						/*for (int k = 0; k < d; k++) {
+						for (int k = 0; k < d; k++) {
 							if (Math.abs(points[i][k] - points[j][k]) > testWeight)
 								testWeight = Math.abs(points[i][k] - points[j][k]);
-						}*/
+						}
 						/*if (testing)
 							System.out.println("t (" + i + "," + j + ") : " + testWeight + "\n");*/
 										
-						if (edgeWeight <= N) {
-							//double edgeWeight = dist2(points[i],points[j],d);
+						if (testWeight <= N) {
+							double edgeWeight = dist2(points[i],points[j],d);
 							
 							/*if (testing)
 								System.out.println("e (" + i + "," + j + ") : " + edgeWeight + "\n");*/
