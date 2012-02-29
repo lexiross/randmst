@@ -12,14 +12,18 @@ public class AdjListGraph implements Graph {
 	
 	public AdjListGraph() {
 		this.numVertices = 8;
-		this.dimension = 3;
+		this.dimension = 0;
 		this.vertices = new ArrayList[8];
 		
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 7; i++) {
 			AdjListNode edge = new AdjListNode(i+1,i+1);
 			vertices[i] = new ArrayList<AdjListNode>();
 			vertices[i].add(edge);
 		}
+		
+		AdjListNode edge = new AdjListNode(0,8);
+		vertices[7] = new ArrayList<AdjListNode>();
+		vertices[7].add(edge);
 	}
 
 	public AdjListGraph(int d, int n, double N) {
@@ -59,10 +63,10 @@ public class AdjListGraph implements Graph {
 			case 4:
 				double[][] points = new double[n][d];
 				for (int i = 0; i < n; i++) {
-					System.out.println(i + " : ");
+					//System.out.println(i + " : ");
 					for (int j = 0; j < d; j++) {
 						points[i][j] = rand.nextDouble();
-						System.out.println(points[i][j] + " ");
+						//System.out.println(points[i][j] + " ");
 					}
 				}
 				
@@ -85,6 +89,9 @@ public class AdjListGraph implements Graph {
 								testWeight = Math.abs(points[i][k] - points[j][k]);
 						}
 
+						testWeight = Math.sqrt(dist2(points[i], points[j], d));
+						
+						//System.out.println("t (" + i + "," + j + ") : " + testWeight + "\n");
 										
 						if (testWeight <= N) {
 							edgeCount += 1;
@@ -235,7 +242,7 @@ public class AdjListGraph implements Graph {
 			while(iterator.hasNext()) {
 				AdjListNode node = iterator.next();
 				int w = node.getVertex();
-				System.out.println("w " + w);
+				//System.out.println("w " + w);
 				if (!(set[w])) {
 					if (dist[w] > node.getWeight()) {
 						dist[w] = node.getWeight();
@@ -262,7 +269,7 @@ public class AdjListGraph implements Graph {
 				maxEdge = w;
 			if (w < Double.POSITIVE_INFINITY)
 				reached++;
-			System.out.println(count + "weight=" + w);
+			//System.out.println(count + "weight=" + w);
 			count++;
 		}
 		
