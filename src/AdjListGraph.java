@@ -7,6 +7,19 @@ public class AdjListGraph implements Graph {
 	private ArrayList<AdjListNode>[] vertices;
 	private int numVertices;
 	private int dimension;
+	double[][] points;
+	
+	public AdjListGraph() {
+		this.numVertices = 8;
+		this.dimension = 3;
+		this.vertices = new ArrayList[8];
+		
+		for (int i = 0; i < 8; i++) {
+			AdjListNode edge = new AdjListNode(i+1,i+1);
+			vertices[i] = new ArrayList<AdjListNode>();
+			vertices[i].add(edge);
+		}
+	}
 
 	public AdjListGraph(int d, int n, double N) {
 		this.numVertices = n;
@@ -45,8 +58,11 @@ public class AdjListGraph implements Graph {
 			case 4:
 				double[][] points = new double[n][d];
 				for (int i = 0; i < n; i++) {
-					for (int j = 0; j < d; j++)
+					System.out.println(i + " : ");
+					for (int j = 0; j < d; j++) {
 						points[i][j] = rand.nextDouble();
+						System.out.println(points[i][j] + " ");
+					}
 				}
 				
 				/*if (testing) {
@@ -67,13 +83,14 @@ public class AdjListGraph implements Graph {
 							if (Math.abs(points[i][k] - points[j][k]) > testWeight)
 								testWeight = Math.abs(points[i][k] - points[j][k]);
 						}
-						/*if (testing)
-							System.out.println("t (" + i + "," + j + ") : " + testWeight + "\n");*/
+
 						testWeight = Math.sqrt(dist2(points[i], points[j], d));
-						//System.out.println(testWeight);
+						
+						System.out.println("t (" + i + "," + j + ") : " + testWeight + "\n");
+
 						if (testWeight < N) {
 							edgeCount++;
-							double edgeWeight = dist2(points[i],points[j],d);
+							double edgeWeight = testWeight;//double edgeWeight = dist2(points[i],points[j],d);
 							
 							/*if (testing)
 								System.out.println("e (" + i + "," + j + ") : " + edgeWeight + "\n");*/
@@ -132,6 +149,7 @@ public class AdjListGraph implements Graph {
 		
 		dist[0] = 0;
 		
+		
 		while (!H.isEmpty()) {
 			AdjListNode currVertex = H.deleteMin();
 			int v = currVertex.getVertex();
@@ -155,6 +173,7 @@ public class AdjListGraph implements Graph {
 			while(iterator.hasNext()) {
 				AdjListNode node = iterator.next();
 				int w = node.getVertex();
+				System.out.println("w " + w);
 				if (!(set[w])) {
 					if (dist[w] > node.getWeight()) {
 						dist[w] = node.getWeight();
@@ -165,6 +184,7 @@ public class AdjListGraph implements Graph {
 			}
 		}
 		
+		
 		/*for (int i = 0; i < numVertices; i++) {
 			System.out.println(i + ": " + "dist=" + dist[i] + " prev=" + prev[i] + "\n");
 		}*/
@@ -172,6 +192,7 @@ public class AdjListGraph implements Graph {
 		double finalWeight = 0.0;
 		double maxEdge = 0.0;
 		int reached = 0;
+		int count = 0;
 		for (double w : dist) {
 			if (dimension != 0)
 				w = Math.sqrt(w);
@@ -180,6 +201,8 @@ public class AdjListGraph implements Graph {
 				maxEdge = w;
 			if (w < Double.POSITIVE_INFINITY)
 				reached++;
+			System.out.println(count + "weight=" + w);
+			count++;
 		}
 		
 		System.out.println("Dimension: " + this.dimension + 
