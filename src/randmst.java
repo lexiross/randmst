@@ -32,7 +32,6 @@ public class randmst {
         		//System.out.println("done");
         		break;
         	case 2:
-        		double lim = 0.13;
         		for (int i = numpoints; i <= numpoints; i+=1000) {
         			for (int j = 0; j < numtrials; j++) {
         				//Graph g2 = new AdjListGraph();
@@ -57,6 +56,19 @@ public class randmst {
         			System.out.println(x.toString() + "\n");
         		}
         		break;
+        	case 4:
+        		int[] ns = {16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32678};
+        		
+        		for (int n : ns) {
+        			for (int d = 4; d <= dimension; d++) {
+        				if (d == 1)
+        					continue;
+	        			for (int i = 0; i < numtrials; i++) {
+	        				Graph g4 = new AdjListGraph(d, n);
+	        				g4.prim();
+	        			}
+        			}
+        		}
         		
         	default:
         		System.exit(1);
