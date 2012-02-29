@@ -31,10 +31,11 @@ public class randmst {
         		//System.out.println("done");
         		break;
         	case 2:
-        		double lim = .14;
-        		for (int i = 1000; i < numpoints; i+=1000) {
+        		double lim = 2;
+        		for (int i = numpoints; i <= numpoints; i+=1000) {
         			for (int j = 0; j < numtrials; j++) {
         				Graph g2 = new AdjListGraph(dimension, i, lim);
+        				//g2.print();
         				g2.prim();
         			}
         		}

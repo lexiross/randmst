@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 import java.util.Random;
 import java.util.Stack;
 import java.util.Iterator;
@@ -56,10 +57,12 @@ public class AdjListGraph implements Graph {
 					}
 				}*/
 				
+				int edgeCount = 0;
+				
 				for (int i = 0; i < n; i++) {
 					for (int j = i + 1; j < n; j++) {
 						
-						double testWeight = dist2(points[i],points[j],d);
+						double testWeight = 0;
 						
 						for (int k = 0; k < d; k++) {
 							if (Math.abs(points[i][k] - points[j][k]) > testWeight)
@@ -69,6 +72,7 @@ public class AdjListGraph implements Graph {
 							System.out.println("t (" + i + "," + j + ") : " + testWeight + "\n");*/
 										
 						if (testWeight <= N) {
+							edgeCount += 1;
 							double edgeWeight = dist2(points[i],points[j],d);
 							
 							/*if (testing)
@@ -86,6 +90,7 @@ public class AdjListGraph implements Graph {
 						}
 					}
 				}
+				System.out.println("Edge count: " + edgeCount);
 				break;
 			default: break;
 		}
@@ -104,6 +109,69 @@ public class AdjListGraph implements Graph {
 		return vertices[v];
 	}
 
+	public double priorityPrim() {
+		double treeWeight = 0;
+		//double maxEdge = 0;
+		
+		double[] dist = new double[numVertices];
+		int[] prev = new int[numVertices];
+		boolean[] set = new boolean[numVertices];
+		
+		for (int i = 0; i < numVertices; i++) {
+			dist[i] = Double.POSITIVE_INFINITY;
+			prev[i] = i;
+			set[i] = false;
+		}
+		
+		PriorityQueue<AdjListNode> Q = new PriorityQueue<AdjListNode>();
+		Q.add(new AdjListNode(0,0));
+		
+		dist[0] = 0;
+		
+		while (!Q.isEmpty()) {
+			AdjListNode currVertex = Q.poll();
+			int v = currVertex.getVertex();
+			set[v] = true;
+			
+			
+			ArrayList<AdjListNode> neighbors = this.getNeighbors(v);
+			
+			Iterator<AdjListNode> iterator = neighbors.iterator();
+			 
+			while(iterator.hasNext()) {
+				AdjListNode node = iterator.next();
+				int w = node.getVertex();
+				if (!(set[w])) {
+					if (dist[w] > node.getWeight()) {
+						dist[w] = node.getWeight();
+						prev[w] = v;
+						Q.add(new AdjListNode(w,dist[w]));
+					}
+				}
+			}
+		}
+		
+		//for (int i = 0; i < numVertices; i++) {
+			//System.out.println(i + ": " + "dist=" + dist[i] + " prev=" + prev[i] + "\n");
+		//}
+		
+		double finalWeight = 0.0;
+		double maxEdge = 0.0;
+		for (double w : dist) {
+			if (dimension != 0)
+				w = Math.sqrt(w);
+			finalWeight += w;
+			if (w > maxEdge)
+				maxEdge = w;
+		}
+		
+		System.out.println("Dimension: " + this.dimension + 
+		", n: " + this.numVertices + 
+		", maxEdge: " + maxEdge + ", treeWeight: " +
+		finalWeight);
+		
+		return finalWeight;
+	}
 
 	@Override
 	public double prim() {
@@ -154,9 +222,9 @@ public class AdjListGraph implements Graph {
 			}
 		}
 		
-		/*for (int i = 0; i < numVertices; i++) {
-			System.out.println(i + ": " + "dist=" + dist[i] + " prev=" + prev[i] + "\n");
-		}*/
+		//for (int i = 0; i < numVertices; i++) {
+			//System.out.println(i + ": " + "dist=" + dist[i] + " prev=" + prev[i] + "\n");
+		//}
 		
 		double finalWeight = 0.0;
 		double maxEdge = 0.0;
