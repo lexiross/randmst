@@ -54,6 +54,8 @@ public class MinHeap implements Heap {
 		size--;
 		if (size != 0)
 		    pushdown(1);
+		if (Heap.get(rightchild(1)).getWeight() < Heap.get(1).getWeight() || Heap.get(leftchild(1)).getWeight() < Heap.get(1).getWeight())
+			System.out.println("error in heap\n");
 		return Heap.get(size+1);
     }
 

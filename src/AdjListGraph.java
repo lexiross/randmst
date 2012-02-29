@@ -12,6 +12,8 @@ public class AdjListGraph implements Graph {
 		this.numVertices = n;
 		this.dimension = d;
 		this.vertices = new ArrayList[n];
+		
+		int edgeCount = 0;
 				
 		Random rand = new Random(System.nanoTime());
 		
@@ -59,7 +61,7 @@ public class AdjListGraph implements Graph {
 				for (int i = 0; i < n; i++) {
 					for (int j = i + 1; j < n; j++) {
 						
-						double testWeight = dist2(points[i],points[j],d);
+						double testWeight = 0;
 						
 						for (int k = 0; k < d; k++) {
 							if (Math.abs(points[i][k] - points[j][k]) > testWeight)
@@ -67,8 +69,10 @@ public class AdjListGraph implements Graph {
 						}
 						/*if (testing)
 							System.out.println("t (" + i + "," + j + ") : " + testWeight + "\n");*/
-										
-						if (testWeight <= N) {
+						testWeight = Math.sqrt(dist2(points[i], points[j], d));
+						//System.out.println(testWeight);
+						if (testWeight < N) {
+							edgeCount++;
 							double edgeWeight = dist2(points[i],points[j],d);
 							
 							/*if (testing)
@@ -86,6 +90,7 @@ public class AdjListGraph implements Graph {
 						}
 					}
 				}
+				System.out.println("Edge count:" + edgeCount);
 				break;
 			default: break;
 		}
@@ -130,6 +135,12 @@ public class AdjListGraph implements Graph {
 		while (!H.isEmpty()) {
 			AdjListNode currVertex = H.deleteMin();
 			int v = currVertex.getVertex();
+			
+			if (set[v])
+				continue;
+
+			//System.out.println(v + " " + dist[v]);
+			
 			set[v] = true;
 			
 			//double edgeWeight = Math.sqrt(currVertex.getWeight());
@@ -140,7 +151,7 @@ public class AdjListGraph implements Graph {
 			ArrayList<AdjListNode> neighbors = this.getNeighbors(v);
 			
 			Iterator<AdjListNode> iterator = neighbors.iterator();
-			 
+			
 			while(iterator.hasNext()) {
 				AdjListNode node = iterator.next();
 				int w = node.getVertex();
@@ -160,18 +171,21 @@ public class AdjListGraph implements Graph {
 		
 		double finalWeight = 0.0;
 		double maxEdge = 0.0;
+		int reached = 0;
 		for (double w : dist) {
 			if (dimension != 0)
 				w = Math.sqrt(w);
 			finalWeight += w;
 			if (w > maxEdge)
 				maxEdge = w;
+			if (w < Double.POSITIVE_INFINITY)
+				reached++;
 		}
 		
 		System.out.println("Dimension: " + this.dimension + 
 		", n: " + this.numVertices + 
 		", maxEdge: " + maxEdge + ", treeWeight: " +
-		finalWeight);
+		finalWeight + ", reached: " + reached);
 		
 		return finalWeight;
 
