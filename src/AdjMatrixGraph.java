@@ -3,6 +3,10 @@ import java.util.Random;
 public class AdjMatrixGraph implements Graph {
 	private float[][] matrix;
 	
+	public double priorityPrim() {
+		return 0;
+	}
+	
 	public AdjMatrixGraph(int d, int n) {
 		Random rand = new Random(System.nanoTime());
 		switch (d) {

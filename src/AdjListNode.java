@@ -10,11 +10,15 @@ public class AdjListNode implements Comparable<AdjListNode> {
 		this.weight = edgeWeight;
 	}
 
+	/*
+	 * Returns 1 for lower weights in order to implement min heap.
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
 	public int compareTo(AdjListNode other) {
 		if (this.getWeight() < other.getWeight()) {
-			return -1;
-		} else if (this.weight > other.weight) {
 			return 1;
+		} else if (this.weight > other.weight) {
+			return -1;
 		} else {
 			return 0;
 		}

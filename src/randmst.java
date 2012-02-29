@@ -39,7 +39,8 @@ public class randmst {
         				Graph g2 = new AdjListGraph();
         				//Graph g2 = new AdjListGraph(dimension, i, lim);
         				g2.print();
-        				g2.prim();
+        				//g2.prim();
+        				g2.priorityPrim();
         			}
         		}
         		break;
