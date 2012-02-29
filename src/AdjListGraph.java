@@ -25,12 +25,14 @@ public class AdjListGraph implements Graph {
 		vertices[7].add(edge);
 	}
 
-	public AdjListGraph(int d, int n, double N) {
+	public AdjListGraph(int d, int n) {
 		this.numVertices = n;
 		this.dimension = d;
 		this.vertices = new ArrayList[n];
 		
 		int edgeCount = 0;
+		
+		double N = k(n,d);
 				
 		Random rand = new Random(System.nanoTime());
 		
@@ -112,6 +114,33 @@ public class AdjListGraph implements Graph {
 		}
 		
 		return sumSquares;
+	}
+	
+	static double k(int n, int d) {
+		switch(d) {
+			case 0:
+				if (n < 10000)
+					return 0.15;
+				else
+					return 0.001;
+			case 2:
+				if (n < 10000)
+					return 0.25;
+				else
+					return 0.025;
+			case 3:
+				if (n < 10000)
+					return 0.5;
+				else
+					return 0.08;
+			case 4:
+				if (n < 10000)
+					return 0.5;
+				else
+					return 0.12;
+			default:
+				return 1;
+		}
 	}
 	
 	public ArrayList<AdjListNode> getNeighbors(int v) {

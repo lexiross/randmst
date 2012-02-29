@@ -18,26 +18,25 @@ public class randmst {
         switch (version) {
         	case 0:
         		Graph g0;
-        		double N = 5;
         		double totalWeights = 0;
         		for (int i = 0; i < numtrials; i++) {
-        			g0 = new AdjListGraph(dimension, numpoints, N);
+        			g0 = new AdjListGraph(dimension, numpoints);
         			totalWeights += g0.prim();
         		}
         		double averageWeight = totalWeights / numtrials;
         		System.out.println(averageWeight + "  " + numpoints + "  " + numtrials + "  " + dimension);
         		break;
         	case 1:
-        		Graph g1 = new AdjListGraph(dimension, numpoints, Math.pow(0.012, 2));
+        		Graph g1 = new AdjListGraph(dimension, numpoints);
         		g1.prim();
         		//System.out.println("done");
         		break;
         	case 2:
-        		double lim = 0.4;
-        		for (int i = 100; i <= numpoints; i+=100) {
+        		double lim = 0.13;
+        		for (int i = numpoints; i <= numpoints; i+=1000) {
         			for (int j = 0; j < numtrials; j++) {
         				//Graph g2 = new AdjListGraph();
-        				Graph g2 = new AdjListGraph(dimension, i, lim);
+        				Graph g2 = new AdjListGraph(dimension, i);
         				//g2.print();
         				g2.prim();
         			}
