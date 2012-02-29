@@ -33,12 +33,12 @@ public class randmst {
         		//System.out.println("done");
         		break;
         	case 2:
-        		double lim = 2;
-        		for (int i = numpoints; i <= numpoints; i+=1000) {
+        		double lim = 0.4;
+        		for (int i = 100; i <= numpoints; i+=100) {
         			for (int j = 0; j < numtrials; j++) {
-        				Graph g2 = new AdjListGraph();
-        				//Graph g2 = new AdjListGraph(dimension, i, lim);
-        				g2.print();
+        				//Graph g2 = new AdjListGraph();
+        				Graph g2 = new AdjListGraph(dimension, i, lim);
+        				//g2.print();
         				g2.prim();
         			}
         		}
