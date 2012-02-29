@@ -1,3 +1,5 @@
+import java.util.Random;
+
 
 public class randmst {
 	public static void main (String[] args) {
@@ -34,22 +36,27 @@ public class randmst {
         		double lim = 2;
         		for (int i = numpoints; i <= numpoints; i+=1000) {
         			for (int j = 0; j < numtrials; j++) {
-        				Graph g2 = new AdjListGraph(dimension, i, lim);
-        				//g2.print();
+        				Graph g2 = new AdjListGraph();
+        				//Graph g2 = new AdjListGraph(dimension, i, lim);
+        				g2.print();
         				g2.prim();
         			}
         		}
         		break;
         	case 3:
-        		int[] array = {1,2,10,8,3,9,7,4,6,5};
+        		//int[] array = {1,2,10,8,3,9,7,4,6,5};
         		MinHeap h = new MinHeap();
         		
-        		for(int i = 0; i < 10; i++) {
-        			h.insert(new AdjListNode(i,array[i]));
+        		Random rand = new Random();
+        		
+        		for(int i = 0; i < 10000; i++) {
+        			h.insert(new AdjListNode(i,rand.nextInt()%100));
         		}
         		
-        		while (!h.isEmpty())
-        			System.out.println(h.deleteMin().toString() + "\n");
+        		while (!h.isEmpty()) {
+        			AdjListNode x = h.deleteMin();
+        			System.out.println(x.toString() + "\n");
+        		}
         		break;
         		
         	default:
