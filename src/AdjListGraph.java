@@ -119,6 +119,8 @@ public class AdjListGraph implements Graph {
 	static double k(int n, int d) {
 		switch(d) {
 			case 0:
+				if (n < 500)
+					return 0.5;
 				if (n < 2000)
 					return 0.05;
 				else if (n < 5000)
@@ -128,12 +130,20 @@ public class AdjListGraph implements Graph {
 				else
 					return 0.001;
 			case 2:
-				if (n < 10000)
+				if (n < 500)
+					return 0.5;
+				else if (n < 2000)
 					return 0.25;
+				else if (n < 5000)
+					return 0.05;
+				else if (n < 10000)
+					return 0.028;
 				else
 					return 0.025;
 			case 3:
-				if (n < 2000)
+				if (n < 500)
+					return 1;
+				else if (n < 2000)
 					return 0.5;
 				else if (n < 5000)
 					return 0.15;
@@ -142,11 +152,13 @@ public class AdjListGraph implements Graph {
 				else
 					return 0.08;
 			case 4:
-				if (n < 2000)
+				if (n < 500)
+					return 1;
+				else if (n < 2000)
 					return 0.5;
-				if (n < 5000)
+				else if (n < 5000)
 					return 0.25;
-				if (n < 10000)
+				else if (n < 10000)
 					return 0.2;
 				else
 					return 0.12;

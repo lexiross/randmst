@@ -57,10 +57,10 @@ public class randmst {
         		}
         		break;
         	case 4:
-        		int[] ns = {16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32678};
+        		int[] ns = {16, 32, 64, 128}; // 256, 512, 1024, 2048, 4096, 8192, 16384, 32678};
         		
-        		for (int n : ns) {
-        			for (int d = 4; d <= dimension; d++) {
+        		for (int d = 0; d <= dimension; d++) {
+        			for (int n : ns) {
         				if (d == 1)
         					continue;
 	        			for (int i = 0; i < numtrials; i++) {
