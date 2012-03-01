@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd bin
+java -Xmx2048m randmst "$@"

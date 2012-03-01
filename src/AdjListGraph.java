@@ -9,6 +9,10 @@ public class AdjListGraph implements Graph {
 	private int numVertices;
 	private int dimension;
 	
+	/*
+	 * A small graph for testing only
+	 */
+	@SuppressWarnings("unchecked")
 	public AdjListGraph() {
 		this.numVertices = 8;
 		this.dimension = 0;
@@ -24,7 +28,12 @@ public class AdjListGraph implements Graph {
 		vertices[7] = new ArrayList<AdjListNode>();
 		vertices[7].add(edge);
 	}
-
+	
+	/*
+	 * Initializes a graph based on a given dimension and
+	 * number of nodes.
+	 */
+	@SuppressWarnings("unchecked")
 	public AdjListGraph(int d, int n) {
 		this.numVertices = n;
 		this.dimension = d;
@@ -36,13 +45,13 @@ public class AdjListGraph implements Graph {
 				
 		Random rand = new Random(System.nanoTime());
 		
-		// SQUARING!!
 		switch (d) {
 			case 0: 
 				for (int i = 0; i < n; i++) {
 					for (int j = i + 1; j < n; j++) {
 						double edgeWeight = rand.nextDouble();
 								
+						// only add edge to graph if it weight is below threshold
 						if (edgeWeight < N) {
 							//System.out.println("(" + i + "," + j + ") : " + edgeWeight + "\n");
 							
