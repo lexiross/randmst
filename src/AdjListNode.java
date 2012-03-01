@@ -16,9 +16,9 @@ public class AdjListNode implements Comparable<AdjListNode> {
 	 */
 	public int compareTo(AdjListNode other) {
 		if (this.getWeight() < other.getWeight()) {
-			return 1;
-		} else if (this.weight > other.weight) {
 			return -1;
+		} else if (this.weight > other.weight) {
+			return 1;
 		} else {
 			return 0;
 		}

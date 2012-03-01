@@ -33,8 +33,8 @@ public class randmst {
         		//System.out.println("done");
         		break;
         	case 2:
-        		double lim = 1; // then by 500 up to 2000
-        		for (int i = 50; i <= numpoints; i+=50) {
+        		double lim = 0.18; // then by 500 up to 2000
+        		for (int i = 32000; i <= numpoints; i+=500) {
         			for (int j = 0; j < numtrials; j++) {
         				//Graph g2 = new AdjListGraph();
         				Graph g2 = new AdjListGraph(dimension, i, lim);
