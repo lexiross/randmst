@@ -71,13 +71,16 @@ public class AdjListGraph implements Graph {
 			case 2:
 			case 3:
 			case 4:
+				// generate coordinates
 				double[][] points = new double[n][d];
 				for (int i = 0; i < n; i++) {
 					for (int j = 0; j < d; j++) {
 						points[i][j] = rand.nextDouble();
 					}
 				}
-								
+					
+				// use max component as a proxy for edge weight
+				// (see writeup for explanation)
 				for (int i = 0; i < n; i++) {
 					for (int j = i + 1; j < n; j++) {
 						
@@ -87,16 +90,11 @@ public class AdjListGraph implements Graph {
 							if (Math.abs(points[i][k] - points[j][k]) > testWeight)
 								testWeight = Math.abs(points[i][k] - points[j][k]);
 						}						
-
-						//System.out.println("t (" + i + "," + j + ") : " + testWeight + "\n");
 										
 						if (testWeight <= N) {
 							edgeCount += 1;
 							double edgeWeight = dist2(points[i],points[j],d);
-							
-							/*if (testing)
-								System.out.println("e (" + i + "," + j + ") : " + edgeWeight + "\n");*/
-							
+														
 							AdjListNode iNode = new AdjListNode(i,edgeWeight);
 							if (vertices[j] == null) 
 								vertices[j] = new ArrayList<AdjListNode>();						
@@ -109,13 +107,15 @@ public class AdjListGraph implements Graph {
 						}
 					}
 				}
-				//System.out.println("Edge count: " + edgeCount);
 
 				break;
 			default: break;
 		}
 	}
 	
+	/*
+	 * Gets the square of the Euclidian distance between two points
+	 */
 	static double dist2(double[] x, double[] y, int d) {
 		double sumSquares = 0;
 		for (int i = 0; i < d; i++) {
@@ -125,6 +125,10 @@ public class AdjListGraph implements Graph {
 		return sumSquares;
 	}
 	
+	/*
+	 * Function for determining the proper threshold for edges to keep.
+	 * See writeup for explanation.
+	 */
 	static double k(int n, int d) {
 		switch(d) {
 			case 0:
@@ -180,6 +184,7 @@ public class AdjListGraph implements Graph {
 		return vertices[v];
 	}
 
+	/*
 	public double priorityPrim() {
 		
 		double[] dist = new double[numVertices];
@@ -241,7 +246,11 @@ public class AdjListGraph implements Graph {
 		
 		return finalWeight;
 	}
+	*/
 
+	/*
+	 * Implementation of our good friend Prim's algorithm.
+	 */
 	public double prim() {
 		
 		double[] dist = new double[numVertices];
@@ -265,8 +274,6 @@ public class AdjListGraph implements Graph {
 			
 			if (set[v])
 				continue;
-
-			//System.out.println(v + " " + dist[v]);
 			
 			set[v] = true;
 			
@@ -274,10 +281,11 @@ public class AdjListGraph implements Graph {
 			
 			Iterator<AdjListNode> iterator = neighbors.iterator();
 			
+			// Iterate through the node's neighbors and update
+			// edge weights accordingly.
 			while(iterator.hasNext()) {
 				AdjListNode node = iterator.next();
 				int w = node.getVertex();
-				//System.out.println("w " + w);
 				if (!(set[w])) {
 					if (dist[w] > node.getWeight()) {
 						dist[w] = node.getWeight();
@@ -288,10 +296,7 @@ public class AdjListGraph implements Graph {
 			}
 		}
 		
-		/*for (int i = 0; i < numVertices; i++) {
-			System.out.println(i + ": " + "dist=" + dist[i] + " prev=" + prev[i] + "\n");
-		}*/
-		
+		// final processing
 		double finalWeight = 0.0;
 		double maxEdge = 0.0;
 		for (double w : dist) {
@@ -302,15 +307,23 @@ public class AdjListGraph implements Graph {
 				maxEdge = w;
 		}
 		
+		/*
+		 * For testing only:
 		System.out.println("Dimension: " + this.dimension + 
 		", n: " + this.numVertices + 
 		", maxEdge: " + maxEdge + ", treeWeight: " +
 		finalWeight);
+		*/
 		
 		return finalWeight;
 
 	}
 
+	/*
+	 * Performs a DFS to check whether a graph is connected.
+	 * For testing purposes only.
+	 * @see Graph#isGraph()
+	 */
 	public boolean isGraph() {
 		Stack<AdjListNode> stack = new Stack<AdjListNode>();
 		AdjListNode root = new AdjListNode(0, 0.0);
@@ -333,6 +346,10 @@ public class AdjListGraph implements Graph {
 		return (count == this.numVertices);
 	}
 	
+	/*
+	 * For testing only.
+	 * @see Graph#print()
+	 */
 	public void print() {
 		for (int i = 0; i < numVertices; i++) {
 			System.out.println(i + "-> ");

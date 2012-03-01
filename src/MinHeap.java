@@ -3,7 +3,8 @@ import java.util.ArrayList;
 import java.util.*;
 
 /**
-   This class implements a heap.
+   Implements a binary min heap.
+   Adapted from http://comscigate.com/HW/cs31/src_code/ch21/pqueue/MinHeap.java
 */
 public class MinHeap implements Heap
 {

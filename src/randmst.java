@@ -17,14 +17,20 @@ public class randmst {
         
         switch (version) {
         	case 0:
+        		// grading mode
+        		double totalWeights = 0;
         		for (int i = 0; i < numtrials; i++) {
         			Graph g = new AdjListGraph(dimension, numpoints);
-        			g.prim();
+        			double weight = g.prim();
+        			totalWeights += weight;
         		}
+        		double avg = totalWeights / numtrials;
+    			System.out.println(avg + " " + numpoints + " " + numtrials + " " + dimension);
         		break;
         	case 1:
+        		// testing
         		Graph g0;
-        		double totalWeights = 0;
+        		totalWeights = 0;
         		for (int i = 0; i < numtrials; i++) {
         			g0 = new AdjListGraph(dimension, numpoints);
         			totalWeights += g0.prim();
@@ -33,23 +39,30 @@ public class randmst {
         		System.out.println(averageWeight + "  " + numpoints + "  " + numtrials + "  " + dimension);
         		break;
         	case 2:
+        		// testing that prim halts
         		Graph g1 = new AdjListGraph(dimension, numpoints);
         		g1.prim();
         		//System.out.println("done");
         		break;
         	case 3:
-        		for (int i = numpoints; i <= 32678; i*=2) {
-        			for (int j = 0; j < numtrials; j++) {
+        		// testing many values of n; timing
+        		for (int i = numpoints; i <= 32768; i*=2) {
+        			totalWeights = 0;
+        			for (int j = 0; j < numtrials; j++) {	
         				Graph g2 = new AdjListGraph(dimension, i);
         				long start = System.nanoTime();
-        				g2.prim();
+        				double weight = g2.prim();
         				long elapsed = System.nanoTime() - start;
-        				System.out.println("Running time " + elapsed);
+        				double seconds = (double)elapsed / 1000000000.0;
+        				System.out.println("Running time " + seconds);
+        				totalWeights += weight;
         			}
+        			avg = totalWeights / numtrials;
+        			System.out.println(avg + "  " + numpoints + "  " + numtrials + "  " + dimension);
         		}
         		break;
         	case 4:
-        		//int[] array = {1,2,10,8,3,9,7,4,6,5};
+        		// testing heap
         		MinHeap h = new MinHeap();
         		
         		Random rand = new Random();
@@ -64,6 +77,7 @@ public class randmst {
         		}
         		break;
         	case 5:
+        		// testing small graph
         		int[] ns = {16, 32, 64, 128}; // 256, 512, 1024, 2048, 4096, 8192, 16384, 32678};
         		
         		for (int d = 0; d <= dimension; d++) {

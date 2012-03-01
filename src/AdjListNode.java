@@ -1,4 +1,8 @@
 
+/*
+ * Encapsulates the current node's index as well as its
+ * preceding edge weight.
+ */
 public class AdjListNode implements Comparable<AdjListNode> {
 	
 	private int w;
@@ -11,7 +15,6 @@ public class AdjListNode implements Comparable<AdjListNode> {
 	}
 
 	/*
-	 * Returns 1 for lower weights in order to implement min heap.
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
 	public int compareTo(AdjListNode other) {
